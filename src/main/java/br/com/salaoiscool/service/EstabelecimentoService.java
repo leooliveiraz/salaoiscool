@@ -1,8 +1,11 @@
 package br.com.salaoiscool.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.salaoiscool.conf.exception.BusinessException;
 import br.com.salaoiscool.dto.CadastroEstabelecimentoDTO;
 import br.com.salaoiscool.entity.Estabelecimento;
 import br.com.salaoiscool.entity.Usuario;
@@ -19,8 +22,11 @@ public class EstabelecimentoService {
 		Estabelecimento estabelecimento = new Estabelecimento();
 		Usuario usuario = new Usuario();
 		
+		if(dto.getPassword() == null  || dto.getSenhaConfirmacao() == null) {
+			throw new BusinessException("Por informe uma senha e a confirmação.");
+		}
 		if(!dto.getSenhaConfirmacao().equals(dto.getPassword())) {
-			throw new Exception("Por favor, informe senhas iguais.");
+			throw new BusinessException("Por favor, informe senhas iguais.");
 		}
 		
 		estabelecimento.setContato(dto.getContato());
@@ -36,5 +42,11 @@ public class EstabelecimentoService {
 			estabelecimentoRepository.save(estabelecimento);
 			usuarioService.salvar(usuario);
 		}		
+	}
+
+	public Estabelecimento buscarPorId(Integer id) {
+		Optional<Estabelecimento> retorno =  estabelecimentoRepository.findById(id);
+		Estabelecimento estabelecimento = retorno.get();
+		return estabelecimento;		
 	}
 }

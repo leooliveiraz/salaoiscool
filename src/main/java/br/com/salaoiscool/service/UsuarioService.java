@@ -3,6 +3,7 @@ package br.com.salaoiscool.service;
 import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import br.com.salaoiscool.entity.Usuario;
@@ -29,6 +30,11 @@ public class UsuarioService {
 
 	public void salvar(Usuario usuario) {
 		usuarioRepository.save(usuario);
+	}
+
+	public UserDetails buscarPorUsername(String username) {
+		Usuario usuario_ = usuarioRepository.findByUsername(username);
+		return usuario_;
 	}
 	
 }

@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.salaoiscool.entity.Servico;
 
 @Repository
-public interface ServicoRepository  extends CrudRepository<Servico, Integer> {	
+public interface ServicoRepository  extends CrudRepository<Servico, Integer> {
+
+	Servico findByNome(String nome);	
 }

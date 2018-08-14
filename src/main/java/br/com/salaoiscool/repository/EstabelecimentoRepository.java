@@ -7,4 +7,5 @@ import br.com.salaoiscool.entity.Estabelecimento;
 
 @Repository
 public interface EstabelecimentoRepository  extends CrudRepository<Estabelecimento, Integer> {	
+	
 }
